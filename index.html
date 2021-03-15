@@ -73,7 +73,7 @@
         cursor: pointer;
       }
       .opened {
-        display: none;
+        animation: blink 1.3s ease infinite;
       }
       .main-bg {
         position: absolute;
@@ -163,6 +163,17 @@
           left: -40px;
         }
       }
+      @keyframes blink {
+        0% {
+          box-shadow: 0 0 10px #ffd770;
+        }
+        50% {
+          box-shadow: 0 0 80px #ffd770;
+        }
+        100% {
+          box-shadow: 0 0 10px #ffd770;
+        }
+      }
     </style>
   </head>
   <body>
@@ -202,7 +213,7 @@
           class="coin closed"
         />
       </div>
-      <div class="action-btn active">
+      <div class="action-btn">
         <img src="assets/action-btn.png" alt="action-btn" class="img" />
         <img src="assets/blink-1.png" alt="blink-1" class="blink-1" />
         <img src="assets/blink-2.png" alt="blink-1" class="blink-2" />
@@ -231,7 +242,6 @@
       coins.forEach((coin) => {
         coin.addEventListener('click', async (e) => {
           const coin = e.target;
-          console.log('coin: ', coin);
           if (coin.classList.contains('closed') && OPENED_COUNT < 3) {
             await sleep(150);
             coin.src = 'assets/closed-coin-1.png';
@@ -240,6 +250,9 @@
             await sleep(250);
             coin.src = coinsSrc[OPENED_COUNT];
             text.src = textsSrc[OPENED_COUNT];
+            if (OPENED_COUNT === 2) {
+              coin.classList.add('opened');
+            }
             OPENED_COUNT++;
           }
 
