@@ -243,6 +243,7 @@
         coin.addEventListener('click', async (e) => {
           const coin = e.target;
           if (coin.classList.contains('closed') && OPENED_COUNT < 3) {
+            coin.classList.remove('closed');
             await sleep(150);
             coin.src = 'assets/closed-coin-1.png';
             await sleep(150);
